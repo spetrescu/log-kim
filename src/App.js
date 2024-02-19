@@ -4,13 +4,11 @@ import P5Sketch from './components/p5-sketch';
 import './assets/tailwind.css';
 
 function App() {
-  const [cssCode, setCssCode] = useState("");
-
   const [numWords, setNumWords] = useState("");
   const [numChars, setNumChars] = useState("");
   const [numLogLengths, setNumLogLengths] = useState("");
 
-  const [refreshSketch, setRefreshSketch] = useState(false);
+  const refreshSketch = useState(false);
 
   const [disabled, setDisabled] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -19,45 +17,13 @@ function App() {
   
   const [buttonText, setButtonText] = useState("Estimate heterogeneity");
 
-
-  
-  
-
-  const changeOrientation = () => {
-    setCssCode(getRandomLogFileName());
-    setCssCode(prevCode => prevCode);
-    setRefreshSketch(!refreshSketch);
-  };
-
-  const logFileNames = [
-    "Apache",
-    "BlueGene",
-    "Spark",
-    "Nginx",
-    "Tomcat",
-    "IIS",
-    "Syslog",
-    "Elasticsearch",
-    "Android",
-    "HDFS",
-    "HPC",
-    "OpenStack"
-  ];
-
   function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
-  async function demo() {
-    console.log('Taking a break...');
-    await sleep(2000);
-    console.log('Two second later');
   }
 
   function computeFileStatistics(event) {
     event.preventDefault();
   
-    // Accessing the file from the FormData object
     var fileInput = event.target.querySelector('input[type="file"]');
     var file = fileInput.files[0];
   
@@ -88,19 +54,14 @@ function App() {
       reader.readAsText(file);
       setIsVisible(true)
       setDisabled(true)
+      setButtonText("Loading")
     } else {
       console.error('No file selected.');
-      // Handle the case where no file is selected
     }
   }
 
   function  refreshPage(event) {
     window.location.reload();
-  }
-
-  function getRandomLogFileName() {
-    const randomIndex = Math.floor(Math.random() * logFileNames.length);
-    return logFileNames[randomIndex];
   }
 
   return (
@@ -140,7 +101,6 @@ function App() {
               <div className="box md:w-[640px] w-[350px] h-auto mx-auto break-all mt-1 p-2 ">
               <p className="p-3 text-gray-200 font-mono text-base md:text-xl text-center font-semibold">
                 <span className="text-gray-100 text-left">
-                  <pre>{`${cssCode}`}</pre>
                   <pre className="text-white text-left">{`Results: {\n\tnumWords: ${numWords},\n\tnumChars: ${numChars},\n\tnumLogLengths: ${numLogLengths}\n}`}</pre>
                 </span>
               </p>
@@ -158,14 +118,6 @@ function App() {
           }
           
           </div>
-          {/* <div className="box md:w-[640px] w-[350px] h-auto mx-auto break-all mt-4 p-2 ">
-            <p className="p-3 text-gray-200 font-mono text-base md:text-xl text-center font-semibold">
-              <span className="text-gray-100 text-left">
-                <pre>{`${cssCode}`}</pre>
-                <pre className="text-white text-left">{`Results: {\n\t\t  numWords: ${numWords},\n\t\t  numChars: ${numChars},\n\t\t  numLogLengths:  ${numLogLengths}\n}`}</pre>
-              </span>
-            </p>
-          </div> */}
         </div>
 
         <footer className="mx-auto bg-opacity-5 rounded-lg m-4 text-white">

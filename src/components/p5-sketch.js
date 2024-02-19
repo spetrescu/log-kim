@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Sketch from 'react-p5';
 import { generateRandomColorRamp } from 'fettepalette';
 import './P5Sketch.css';
